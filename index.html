@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>BeMobile Alarm Dashboard</title>
+
+<!-- PWA: fullscreen on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Alarms">
+
+<!-- PWA: fullscreen on Android -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f0f0f">
+
+<!-- Inline manifest (no separate file needed) -->
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQmVNb2JpbGUgQWxhcm0gRGFzaGJvYXJkIiwic2hvcnRfbmFtZSI6IkFsYXJtcyIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGYwZjBmIiwidGhlbWVfY29sb3IiOiIjMGYwZjBmIn0=">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%;
+    background: #0f0f0f;
+    overflow: hidden;
+  }
+  iframe {
+    width: 100%; height: 100%;
+    border: none;
+    background: #0f0f0f;
+  }
+  /* Safe area for notch/dynamic island */
+  @supports (padding-top: env(safe-area-inset-top)) {
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      height: calc(100% - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    }
+  }
+</style>
+</head>
+<body>
+<iframe
+  src="https://script.google.com/a/macros/bemobile.com/s/AKfycbyVBp629IgTUo5t7BtpHavnr8cvmfFXuOSp1Y9An2cVmrricIFMr988AUhAu2Jp0GRc/exec"
+  allow="clipboard-write"
+  sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-popups-to-escape-sandbox"
+></iframe>
+</body>
+</html>

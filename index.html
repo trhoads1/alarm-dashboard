@@ -15,7 +15,9 @@
 <meta name="theme-color" content="#0f0f0f">
 
 <!-- Inline manifest (no separate file needed) -->
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQmVNb2JpbGUgQWxhcm0gRGFzaGJvYXJkIiwic2hvcnRfbmFtZSI6IkFsYXJtcyIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGYwZjBmIiwidGhlbWVfY29sb3IiOiIjMGYwZjBmIn0=">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,6 +42,12 @@
     }
   }
 </style>
+<script>
+  // Register service worker for PWA install
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+</script>
 </head>
 <body>
 <iframe

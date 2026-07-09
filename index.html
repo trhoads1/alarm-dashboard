@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>BeMobile Alarm Dashboard</title>
+<title>BeMobile Alarm Issue & Actions Tracker</title>
 <!-- PWA: fullscreen on iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Alarms">
+<meta name="apple-mobile-web-app-title" content="BeMobile IT">
 <!-- PWA: fullscreen on Android -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0f0f0f">
@@ -127,8 +127,8 @@
       '<div class="ios-launch">' +
         '<div class="ios-icon">Be</div>' +
         '<div class="ios-title">BeMobile</div>' +
-        '<div class="ios-subtitle">Alarm Panel Dashboard</div>' +
-        '<a class="ios-btn" href="' + GAS_URL + '">Launch Dashboard</a>' +
+        '<div class="ios-subtitle">Alarm Issue & Actions Tracker</div>' +
+        '<a class="ios-btn" href="' + GAS_URL + '">Launch Tracker</a>' +
         '<div class="ios-note">Opens in a browser view. Tap Done to return.</div>' +
       '</div>';
   } else {
@@ -137,6 +137,31 @@
     iframe.allow = 'clipboard-write';
     iframe.sandbox = 'allow-scripts allow-same-origin allow-popups allow-forms allow-popups-to-escape-sandbox';
     document.body.appendChild(iframe);
+
+    // Handshake: Dashboard.html postMessages 'alarmdash-loaded' once it renders.
+    // If that never arrives, Google served an interstitial (login/consent/dead
+    // deployment) which refuses framing, or cookies are blocked. Show a way out.
+    var appLoaded = false;
+    window.addEventListener('message', function(ev) {
+      if (ev.data === 'alarmdash-loaded') {
+        appLoaded = true;
+        var ov = document.getElementById('frameFallback');
+        if (ov) ov.remove();
+      }
+    });
+    setTimeout(function() {
+      if (appLoaded) return;
+      var ov = document.createElement('div');
+      ov.id = 'frameFallback';
+      ov.style.cssText = 'position:fixed;inset:0;background:#0f0f0f;color:#ccc;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:sans-serif;z-index:9999;';
+      ov.innerHTML =
+        '<div style="font-size:34px;font-weight:800;color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:16px;width:72px;height:72px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;">Be</div>' +
+        '<div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;">Tracker could not load in the app window</div>' +
+        '<div style="font-size:12px;color:#888;max-width:420px;line-height:1.6;margin-bottom:18px;">Google is asking for a sign in or consent that cannot display here, or third party cookies are blocked for google.com. Open directly once, sign in, then relaunch this app.</div>' +
+        '<a href="' + GAS_URL + '" target="_blank" rel="noopener" style="background:#cd040b;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 28px;border-radius:8px;margin-bottom:10px;">Open Directly</a>' +
+        '<button onclick="location.reload()" style="background:transparent;color:#888;border:1px solid #333;font-size:12px;padding:8px 20px;border-radius:8px;cursor:pointer;">Retry</button>';
+      document.body.appendChild(ov);
+    }, 12000);
   }
 </script>
 </body>
